@@ -1,0 +1,4 @@
+ Name: G H N
+    Address: 7 Hamisu Danraka Street
+    Date: 24 January 2024
+    Amount in Words: Three hundred and sixty thousand
