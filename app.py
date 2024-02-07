@@ -57,13 +57,7 @@ def main():
     submit = st.button("Extract Text")
 
     input_prompt="""Read the text in the image and output what you see 
-        according to fields and values in the format below
-        Name: value
-        Address: value
-        Date: value
-        Amount in Words: value
-        ----
-        ----
+        in JSON format according to fields and values
     """
 
     if submit:

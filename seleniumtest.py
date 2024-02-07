@@ -2,9 +2,15 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 
-browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+chrome_options = Options()
+chrome_options.add_experimental_option("detach", True)
+
+browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+wait = WebDriverWait(browser, 10)
 
 try:
 
@@ -15,6 +21,7 @@ try:
     user_name.send_keys("guest@lamisplus.org")
     password = browser.find_element(By.XPATH, "//input[@type='password' and @class='form-control']")
     password.send_keys("123456")
+    time.sleep(5)
     login = browser.find_element(By.XPATH, "//button[@type='submit' and @class='btn btn-primary btn-block']")
     login.click()
     time.sleep(2)
