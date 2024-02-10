@@ -1,0 +1,73 @@
+ ```json
+{
+  "Patient Name:": "Emetobamire Temitope",
+  "Age:": "34",
+  "Sex:": "M",
+  "Ward:": "Female",
+  "Bed No.": "1",
+  "Date:": "25/11/2022",
+  "Prescriber:": "Dr. Omotola",
+  "Signature:": "_______________",
+  "1. Anti-TB Drugs:": [
+    {
+      "Drug Name:": "Isoniazid",
+      "Dose:": "300mg",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    },
+    {
+      "Drug Name:": "Rifampicin",
+      "Dose:": "450mg",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    },
+    {
+      "Drug Name:": "Ethambutol",
+      "Dose:": "800mg",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    },
+    {
+      "Drug Name:": "Pyrazinamide",
+      "Dose:": "1500mg",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    }
+  ],
+  "2. Drugs for DI Prophylaxis/Treatment:": [
+    {
+      "Drug Name:": "Cotrimoxazole",
+      "Dose:": "960mg",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    }
+  ],
+  "3. Anti-TB Drugs:": [
+    {
+      "Drug Name:": "Rifampicin",
+      "Dose:": "450mg",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    },
+    {
+      "Drug Name:": "Isoniazid",
+      "Dose:": "300mg",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    }
+  ],
+  "4. Drugs for other OIs or other related conditions:": [
+    {
+      "Drug Name:": "Nystatin",
+      "Dose:": "500,000U",
+      "Frequency:": "OD",
+      "Route:": "PO"
+    }
+  ],
+  "Feedback from the Pharmacist in case of any observed medication error (attach additional sheets if needed):": "",
+  "Name of the Pharmacist:": "_________________",
+  "Signature and Date:": "_________________",
+  "1st Verification by (Print Pharmacist's Name)": "OLUWASEUN A. ADEYEMI",
+  "Signature & Date": "25/11/2022"
+}
+```

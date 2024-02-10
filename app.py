@@ -1,12 +1,10 @@
 from PIL import Image
 from dotenv import load_dotenv
-load_dotenv()
-from io import BytesIO
 import google.generativeai as genai
 import streamlit as st
-import base64
 import os
 
+load_dotenv()
 
 genai.configure(api_key=os.getenv('API_KEY'))
 
@@ -39,7 +37,7 @@ def generate_text(image,prompt):
 def save_text_to_file(response, predefined_folder):
     if not os.path.exists(predefined_folder):
         os.makedirs(predefined_folder)
-    file_path = os.path.join(predefined_folder, 'imageText' + '.txt')
+    file_path = os.path.join(predefined_folder, 'imageText' + '.json')
     with open(file_path, 'w') as file:
         file.write(response)
 
