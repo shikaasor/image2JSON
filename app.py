@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 import streamlit as st
 import os
+import json
+import psycopg2
+
 
 load_dotenv()
 
@@ -64,6 +67,14 @@ def main():
         st.subheader("The response is")
         st.write(response)
         save_text_to_file(response,"./extractedText")
+    
+    conn = psycopg2.connect(
+        host="localhost",
+        database="todo",
+        user="postgres",
+        password='lamis',
+        port='5432',
+    )
 
 
 if __name__ == "__main__":
