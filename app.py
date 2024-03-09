@@ -11,6 +11,7 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv('API_KEY'))
 
+
 def load_image(uploaded_file):
     if uploaded_file is not None:
         bytes_data = uploaded_file.getvalue()
@@ -44,6 +45,64 @@ def save_text_to_file(response, predefined_folder):
     with open(file_path, 'w') as file:
         file.write(response)
 
+import re
+
+def extract_json(response):
+    pattern = r"{[\s\S]*?(?=})"  # Matches anything between { and } (not greedy)
+    match = re.search(pattern, response)
+    if match:
+        return match.group(0)
+    else:
+        return None
+
+def insert_into_database(json_data):
+    try:
+        conn = psycopg2.connect(
+            host="localhost",
+            user="postgres",
+            password='lamis',
+            port='5432',
+        )
+        conn.autocommit = True
+        cursor = conn.cursor()
+
+        # Create the database if it doesn't exist
+        cursor.execute("CREATE DATABASE IF NOT EXISTS data")
+
+        # Connect to the 'data' database
+        conn.close()
+        conn = psycopg2.connect(
+            host="localhost",
+            database="data",
+            user="postgres",
+            password='lamis',
+            port='5432',
+        )
+        cursor = conn.cursor()
+
+        # Create the table if it doesn't exist
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS json_data (
+            id SERIAL PRIMARY KEY,
+            data JSONB
+        )
+        """
+        cursor.execute(create_table_query)
+
+        # Insert the JSON data into the table
+        insert_query = "INSERT INTO json_data (data) VALUES (%s)"
+        cursor.execute(insert_query, (json_data,))
+
+        conn.commit()
+        st.success("JSON data inserted into the database.")
+    except (Exception, psycopg2.Error) as error:
+        st.error(f"Error inserting JSON data into the database: {error}")
+    finally:
+        if conn:
+            cursor.close()
+            conn.close()
+
+
 def main():
     
     st.set_page_config(page_title="Image2Form")
@@ -67,15 +126,18 @@ def main():
         response = generate_text(image_data,input_prompt)
         st.subheader("The response is")
         st.write(response)
-        save_text_to_file(response,"./extractedText")
+        json_data = extract_json(response)
+        save_text_to_file(json_data,"./extractedText")
     
-    conn = psycopg2.connect(
-        host="localhost",
-        database="todo",
-        user="postgres",
-        password='lamis',
-        port='5432',
-    )
+      # Extract JSON and save to database
+    save = st.button("Save Data")
+    if save:
+        extracted_json = extract_json(response)
+        if extracted_json:
+            save_to_database(extracted_json, conn)
+            st.success("Extracted data saved to database!")
+        else:
+            st.warning("No valid JSON found in the response.")
 
 
 if __name__ == "__main__":
