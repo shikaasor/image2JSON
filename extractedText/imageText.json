@@ -1,73 +1,51 @@
  ```json
 {
-  "Patient Name:": "Emetobamire Temitope",
-  "Age:": "34",
-  "Sex:": "M",
-  "Ward:": "Female",
-  "Bed No.": "1",
-  "Date:": "25/11/2022",
-  "Prescriber:": "Dr. Omotola",
-  "Signature:": "_______________",
-  "1. Anti-TB Drugs:": [
+  "shop_address": "Shop 22 Techno Plaza, Justice Dahiru Mustapha Rd. Farm Centre, Kano.",
+  "customer_name": "GG HN",
+  "customer_address": "7 Hamisu Dankaka St.",
+  "invoice_number": "0001",
+  "invoice_date": "24/01/2024",
+  "items": [
     {
-      "Drug Name:": "Isoniazid",
-      "Dose:": "300mg",
-      "Frequency:": "OD",
-      "Route:": "PO"
+      "description": "Hp Elitebook 830 G6 Display",
+      "rate": "127,000",
+      "quantity": 1,
+      "total": "127,000"
     },
     {
-      "Drug Name:": "Rifampicin",
-      "Dose:": "450mg",
-      "Frequency:": "OD",
-      "Route:": "PO"
+      "description": "Hp 15 Display",
+      "rate": "60,000",
+      "quantity": 1,
+      "total": "60,000"
     },
     {
-      "Drug Name:": "Ethambutol",
-      "Dose:": "800mg",
-      "Frequency:": "OD",
-      "Route:": "PO"
+      "description": "8GB PC Ram",
+      "rate": "14,000",
+      "quantity": 1,
+      "total": "14,000"
     },
     {
-      "Drug Name:": "Pyrazinamide",
-      "Dose:": "1500mg",
-      "Frequency:": "OD",
-      "Route:": "PO"
-    }
-  ],
-  "2. Drugs for DI Prophylaxis/Treatment:": [
-    {
-      "Drug Name:": "Cotrimoxazole",
-      "Dose:": "960mg",
-      "Frequency:": "OD",
-      "Route:": "PO"
-    }
-  ],
-  "3. Anti-TB Drugs:": [
-    {
-      "Drug Name:": "Rifampicin",
-      "Dose:": "450mg",
-      "Frequency:": "OD",
-      "Route:": "PO"
+      "description": "256GB M.2 SSD",
+      "rate": "30,000",
+      "quantity": 1,
+      "total": "30,000"
     },
     {
-      "Drug Name:": "Isoniazid",
-      "Dose:": "300mg",
-      "Frequency:": "OD",
-      "Route:": "PO"
-    }
-  ],
-  "4. Drugs for other OIs or other related conditions:": [
+      "description": "Hp power adapter",
+      "rate": "17,000",
+      "quantity": 1,
+      "total": "17,000"
+    },
     {
-      "Drug Name:": "Nystatin",
-      "Dose:": "500,000U",
-      "Frequency:": "OD",
-      "Route:": "PO"
+      "description": "Hp Elitebook repairs & installation",
+      "rate": "15,000",
+      "quantity": 1,
+      "total": "15,000"
     }
   ],
-  "Feedback from the Pharmacist in case of any observed medication error (attach additional sheets if needed):": "",
-  "Name of the Pharmacist:": "_________________",
-  "Signature and Date:": "_________________",
-  "1st Verification by (Print Pharmacist's Name)": "OLUWASEUN A. ADEYEMI",
-  "Signature & Date": "25/11/2022"
+  "total_amount": "263,000",
+  "amount_in_words": "Two hundred and sixty three thousand Naira",
+  "received_by": "RF",
+  "manager_signature": "KOBO"
 }
 ```

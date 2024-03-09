@@ -57,8 +57,9 @@ def main():
     
     submit = st.button("Extract Text")
 
-    input_prompt="""Read the text in the image and output what you see 
-        in JSON format according to fields and values
+    input_prompt=""""Read the handwritten text in the image and output what you see 
+        in JSON format according to fields and values.
+        Focus on fields that have evidence of handwriting and adhere strictly to what is written in the image.
     """
 
     if submit:
