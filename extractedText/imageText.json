@@ -1,51 +1,10 @@
- ```json
 {
-  "shop_address": "Shop 22 Techno Plaza, Justice Dahiru Mustapha Rd. Farm Centre, Kano.",
-  "customer_name": "GG HN",
-  "customer_address": "7 Hamisu Dankaka St.",
-  "invoice_number": "0001",
-  "invoice_date": "24/01/2024",
-  "items": [
+  "name": "AHURA Asor Tar",
+  "candidate_number": "4081306",
+  "year": "May/June 2010",
+  "subjects": [
     {
-      "description": "Hp Elitebook 830 G6 Display",
-      "rate": "127,000",
-      "quantity": 1,
-      "total": "127,000"
-    },
-    {
-      "description": "Hp 15 Display",
-      "rate": "60,000",
-      "quantity": 1,
-      "total": "60,000"
-    },
-    {
-      "description": "8GB PC Ram",
-      "rate": "14,000",
-      "quantity": 1,
-      "total": "14,000"
-    },
-    {
-      "description": "256GB M.2 SSD",
-      "rate": "30,000",
-      "quantity": 1,
-      "total": "30,000"
-    },
-    {
-      "description": "Hp power adapter",
-      "rate": "17,000",
-      "quantity": 1,
-      "total": "17,000"
-    },
-    {
-      "description": "Hp Elitebook repairs & installation",
-      "rate": "15,000",
-      "quantity": 1,
-      "total": "15,000"
-    }
-  ],
-  "total_amount": "263,000",
-  "amount_in_words": "Two hundred and sixty three thousand Naira",
-  "received_by": "RF",
-  "manager_signature": "KOBO"
-}
-```
+      "subject": "ENGLISH LANGUAGE",
+      "grade": "C5",
+      "credit": "CREDIT"
+    

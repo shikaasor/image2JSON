@@ -67,7 +67,10 @@ def insert_into_database(json_data):
         cursor = conn.cursor()
 
         # Create the database if it doesn't exist
-        cursor.execute("CREATE DATABASE IF NOT EXISTS data")
+        cursor.execute("SELECT datname FROM pg_catalog.pg_database WHERE datname='data")
+        db_exists = cursor.fetchone()
+        if not db_exists:
+            cursor.execute("CREATE DATABASE data")
 
         # Connect to the 'data' database
         conn.close()
@@ -81,13 +84,16 @@ def insert_into_database(json_data):
         cursor = conn.cursor()
 
         # Create the table if it doesn't exist
-        create_table_query = """
-        CREATE TABLE IF NOT EXISTS json_data (
-            id SERIAL PRIMARY KEY,
-            data JSONB
-        )
-        """
-        cursor.execute(create_table_query)
+        cursor.execute("SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_name = 'json_data')")
+        table_exists = cursor.fetchone()[0]
+        if not table_exists:
+            create_table_query = """
+            CREATE TABLE json_data (
+                id SERIAL PRIMARY KEY,
+                data JSONB
+            )
+            """
+            cursor.execute(create_table_query)
 
         # Insert the JSON data into the table
         insert_query = "INSERT INTO json_data (data) VALUES (%s)"
@@ -127,15 +133,15 @@ def main():
         st.subheader("Here is the requested data:")
         st.write(response)
         json_data = extract_json(response)
-        
+        save_text_to_file(json_data, "./extractedText")
         # Extract JSON and save to database
-        save = st.button("Save Data")
-        if save:
-            if json_data:
-                insert_into_database(json_data)
-                st.success("Extracted data saved to database!")
-            else:
-                st.warning("No valid JSON found in the response.")
+        # save = st.button("Save Data")
+        # if save:
+        if json_data:
+            insert_into_database(json_data)
+            st.success("Extracted data saved to database!")
+        else:
+            st.warning("No valid JSON found in the response.")
 
 
 if __name__ == "__main__":
