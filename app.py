@@ -5,6 +5,7 @@ import streamlit as st
 import os
 import json
 import psycopg2
+import re
 
 
 load_dotenv()
@@ -45,7 +46,6 @@ def save_text_to_file(response, predefined_folder):
     with open(file_path, 'w') as file:
         file.write(response)
 
-import re
 
 def extract_json(response):
     pattern = r"{[\s\S]*?(?=})"  # Matches anything between { and } (not greedy)
@@ -124,20 +124,18 @@ def main():
     if submit:
         image_data = load_image(uploaded_file)
         response = generate_text(image_data,input_prompt)
-        st.subheader("The response is")
+        st.subheader("Here is the requested data:")
         st.write(response)
         json_data = extract_json(response)
-        save_text_to_file(json_data,"./extractedText")
-    
-      # Extract JSON and save to database
-    save = st.button("Save Data")
-    if save:
-        extracted_json = extract_json(response)
-        if extracted_json:
-            save_to_database(extracted_json, conn)
-            st.success("Extracted data saved to database!")
-        else:
-            st.warning("No valid JSON found in the response.")
+        
+        # Extract JSON and save to database
+        save = st.button("Save Data")
+        if save:
+            if json_data:
+                insert_into_database(json_data)
+                st.success("Extracted data saved to database!")
+            else:
+                st.warning("No valid JSON found in the response.")
 
 
 if __name__ == "__main__":
