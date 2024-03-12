@@ -48,11 +48,16 @@ def save_text_to_file(response, predefined_folder):
 
 
 def extract_json(response):
-    pattern = r"{[\s\S]*?(?=})"  # Matches anything between { and } (not greedy)
-    match = re.search(pattern, response)
-    if match:
-        return match.group(0)
-    else:
+    pattern = r"\{[\s\S]+\}"
+    try:
+        match = re.search(pattern, response)
+        if match:
+            json_data = match.group()
+            return json_data
+        else:
+            return None
+    except Exception as e:
+        print(f"Error extracting JSON data: {e}")
         return None
 
 def insert_into_database(json_data):
@@ -67,7 +72,7 @@ def insert_into_database(json_data):
         cursor = conn.cursor()
 
         # Create the database if it doesn't exist
-        cursor.execute("SELECT datname FROM pg_catalog.pg_database WHERE datname='data")
+        cursor.execute("SELECT datname FROM pg_catalog.pg_database WHERE datname=%s", ('data',))
         db_exists = cursor.fetchone()
         if not db_exists:
             cursor.execute("CREATE DATABASE data")
@@ -94,10 +99,14 @@ def insert_into_database(json_data):
             )
             """
             cursor.execute(create_table_query)
+        
+        # validate json data
+        parsed_json = json.loads(json_data)
+        sanitized_json = json.dumps(parsed_json)
 
         # Insert the JSON data into the table
         insert_query = "INSERT INTO json_data (data) VALUES (%s)"
-        cursor.execute(insert_query, (json_data,))
+        cursor.execute(insert_query, (sanitized_json,))
 
         conn.commit()
         st.success("JSON data inserted into the database.")
@@ -122,9 +131,19 @@ def main():
     
     submit = st.button("Extract Text")
 
-    input_prompt=""""Read the handwritten text in the image and output what you see 
-        in JSON format according to fields and values.
-        Focus on fields that have evidence of handwriting and adhere strictly to what is written in the image.
+    input_prompt=""""Analyze the handwritten text in the image and create a structured JSON output representing the extracted data. 
+    * Identify all fields with clear handwriting evidence within the image.
+    * Exclude any information not explicitly written in the image.
+    * Represent each field as a key-value pair in the JSON structure.
+    * Use descriptive and consistent field names based on the extracted information.
+    * Ensure the generated JSON is well-formed and valid.
+    
+    Here's an example format for the JSON output:
+    {
+        "field1": "value1",
+        "field2": "value2",
+        "field3": "value3"
+        }
     """
 
     if submit:
@@ -132,8 +151,9 @@ def main():
         response = generate_text(image_data,input_prompt)
         st.subheader("Here is the requested data:")
         st.write(response)
+        save_text_to_file(response, "./extractedText")
         json_data = extract_json(response)
-        save_text_to_file(json_data, "./extractedText")
+        st.write(json_data)
         # Extract JSON and save to database
         # save = st.button("Save Data")
         # if save:

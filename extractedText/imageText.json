@@ -1,10 +1,137 @@
+ ```json
 {
-  "name": "AHURA Asor Tar",
+  "name": "Ahura Asor Tar",
   "candidate_number": "4081306",
   "year": "May/June 2010",
   "subjects": [
     {
-      "subject": "ENGLISH LANGUAGE",
+      "subject": "English Language",
       "grade": "C5",
-      "credit": "CREDIT"
-    
+      "credit": "Credit"
+    },
+    {
+      "subject": "Mathematics",
+      "grade": "F9",
+      "credit": "Fail"
+    },
+    {
+      "subject": "Further Mathematics",
+      "grade": "E4",
+      "credit": "Credit"
+    },
+    {
+      "subject": "French",
+      "grade": "F9",
+      "credit": "Fail"
+    },
+    {
+      "subject": "Igbo/Hausa/Yoruba",
+      "grade": "C6",
+      "credit": "Credit"
+    },
+    {
+      "subject": "Literature in English",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "Christian Religious Studies/Islamic Religious Studies",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "History",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "Geography",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "Government",
+      "grade": "R2",
+      "credit": "Good"
+    },
+    {
+      "subject": "Economics",
+      "grade": "R2",
+      "credit": "Good"
+    },
+    {
+      "subject": "Biology",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "Chemistry",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "Physics",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "Agricultural Science",
+      "grade": "B3",
+      "credit": "Good"
+    },
+    {
+      "subject": "Financial Account",
+      "grade": "F9",
+      "credit": "Fail"
+    },
+    {
+      "subject": "Home Management",
+      "grade": "F9",
+      "credit": "Fail"
+    },
+    {
+      "subject": "Foods and Nutrition",
+      "grade": "F9",
+      "credit": "Fail"
+    },
+    {
+      "subject": "Fine Art",
+      "grade": "F9",
+      "credit": "Fail"
+    },
+    {
+      "subject": "Technical Drawing",
+      "grade": "D7",
+      "credit": "Pass"
+    },
+    {
+      "subject": "Commerce",
+      "grade": "C6",
+      "credit": "Credit"
+    },
+    {
+      "subject": "Typewriting",
+      "grade": "D7",
+      "credit": "Pass"
+    },
+    {
+      "subject": "Shorthand",
+      "grade": "F9",
+      "credit": "Fail"
+    },
+    {
+      "subject": "Health Science",
+      "grade": "C6",
+      "credit": "Credit"
+    },
+    {
+      "subject": "Physical Health Education",
+      "grade": "B3",
+      "credit": "Good"
+    }
+  ],
+  "number_of_subjects_passed": "Eight",
+  "number_of_subjects_failed": "Seven",
+  "number_of_subjects_awaiting": "One"
+}
+```
