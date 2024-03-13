@@ -1,137 +1,50 @@
  ```json
 {
-  "name": "Ahura Asor Tar",
-  "candidate_number": "4081306",
-  "year": "May/June 2010",
-  "subjects": [
+  "invoice_number": "0001",
+  "customer_name": "G H N",
+  "customer_address": "7 Hamisu Danraka St.",
+  "invoice_date": "24/01/2024",
+  "items": [
     {
-      "subject": "English Language",
-      "grade": "C5",
-      "credit": "Credit"
+      "description": "Hp EliteBook 830 G6 Display",
+      "rate": "127,000",
+      "quantity": "1",
+      "total": "127,000"
     },
     {
-      "subject": "Mathematics",
-      "grade": "F9",
-      "credit": "Fail"
+      "description": "Hp 15 Display",
+      "rate": "60,000",
+      "quantity": "1",
+      "total": "60,000"
     },
     {
-      "subject": "Further Mathematics",
-      "grade": "E4",
-      "credit": "Credit"
+      "description": "8GB PC Ram",
+      "rate": "14,000",
+      "quantity": "1",
+      "total": "14,000"
     },
     {
-      "subject": "French",
-      "grade": "F9",
-      "credit": "Fail"
+      "description": "256GB M.2 SSD",
+      "rate": "30,000",
+      "quantity": "1",
+      "total": "30,000"
     },
     {
-      "subject": "Igbo/Hausa/Yoruba",
-      "grade": "C6",
-      "credit": "Credit"
+      "description": "Hp power adapter",
+      "rate": "17,000",
+      "quantity": "1",
+      "total": "17,000"
     },
     {
-      "subject": "Literature in English",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "Christian Religious Studies/Islamic Religious Studies",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "History",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "Geography",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "Government",
-      "grade": "R2",
-      "credit": "Good"
-    },
-    {
-      "subject": "Economics",
-      "grade": "R2",
-      "credit": "Good"
-    },
-    {
-      "subject": "Biology",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "Chemistry",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "Physics",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "Agricultural Science",
-      "grade": "B3",
-      "credit": "Good"
-    },
-    {
-      "subject": "Financial Account",
-      "grade": "F9",
-      "credit": "Fail"
-    },
-    {
-      "subject": "Home Management",
-      "grade": "F9",
-      "credit": "Fail"
-    },
-    {
-      "subject": "Foods and Nutrition",
-      "grade": "F9",
-      "credit": "Fail"
-    },
-    {
-      "subject": "Fine Art",
-      "grade": "F9",
-      "credit": "Fail"
-    },
-    {
-      "subject": "Technical Drawing",
-      "grade": "D7",
-      "credit": "Pass"
-    },
-    {
-      "subject": "Commerce",
-      "grade": "C6",
-      "credit": "Credit"
-    },
-    {
-      "subject": "Typewriting",
-      "grade": "D7",
-      "credit": "Pass"
-    },
-    {
-      "subject": "Shorthand",
-      "grade": "F9",
-      "credit": "Fail"
-    },
-    {
-      "subject": "Health Science",
-      "grade": "C6",
-      "credit": "Credit"
-    },
-    {
-      "subject": "Physical Health Education",
-      "grade": "B3",
-      "credit": "Good"
+      "description": "Hp Elitebook repairs & installation",
+      "rate": "15,000",
+      "quantity": "1",
+      "total": "15,000"
     }
   ],
-  "number_of_subjects_passed": "Eight",
-  "number_of_subjects_failed": "Seven",
-  "number_of_subjects_awaiting": "One"
+  "total_amount": "263,000",
+  "amount_in_words": "Two hundred and sixty three thousand",
+  "received_by": "R.F",
+  "managed_by": "Kobo"
 }
 ```

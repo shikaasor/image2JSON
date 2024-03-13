@@ -10,6 +10,11 @@ import re
 
 load_dotenv()
 
+DB_HOST = os.getenv('DB_HOST')
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_PORT = os.getenv('DB_PORT')
 genai.configure(api_key=os.getenv('API_KEY'))
 
 
@@ -63,10 +68,10 @@ def extract_json(response):
 def insert_into_database(json_data):
     try:
         conn = psycopg2.connect(
-            host="localhost",
-            user="postgres",
-            password='lamis',
-            port='5432',
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            port=DB_PORT,
         )
         conn.autocommit = True
         cursor = conn.cursor()
@@ -80,11 +85,11 @@ def insert_into_database(json_data):
         # Connect to the 'data' database
         conn.close()
         conn = psycopg2.connect(
-            host="localhost",
-            database="data",
-            user="postgres",
-            password='lamis',
-            port='5432',
+            host=DB_HOST,
+            database=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            port=DB_PORT,
         )
         cursor = conn.cursor()
 
