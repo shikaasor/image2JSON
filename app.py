@@ -127,7 +127,7 @@ def main():
     
     st.set_page_config(page_title="Image2Form")
 
-    st.header("Transcribe Handfilled Form Image To e-Form")
+    st.header("Extract Data From Handfilled Form Image To JSON")
     uploaded_file = st.file_uploader("Choose image file to detect text",type=['jpeg','jpg','png'])
     image=""
     if uploaded_file is not None:
