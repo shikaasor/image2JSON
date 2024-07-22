@@ -7,7 +7,7 @@ import json
 import psycopg2
 import re
 
-
+#load environment variables
 load_dotenv()
 
 DB_HOST = os.getenv('DB_HOST')
