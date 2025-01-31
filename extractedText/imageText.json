@@ -1,50 +1,13 @@
- ```json
+The image contains a handwritten note that reads "MAKURDI, BENUE STATE". The note is written in blue ink and appears to be a simple, handwritten label or title.
+
+To extract the data from the image, we can identify the following fields:
+
+*   **Location**: The location mentioned in the note is "MAKURDI, BENUE STATE".
+
+Based on the extracted information, the JSON output can be represented as follows:
+
 {
-  "invoice_number": "0001",
-  "customer_name": "G H N",
-  "customer_address": "7 Hamisu Danraka St.",
-  "invoice_date": "24/01/2024",
-  "items": [
-    {
-      "description": "Hp EliteBook 830 G6 Display",
-      "rate": "127,000",
-      "quantity": "1",
-      "total": "127,000"
-    },
-    {
-      "description": "Hp 15 Display",
-      "rate": "60,000",
-      "quantity": "1",
-      "total": "60,000"
-    },
-    {
-      "description": "8GB PC Ram",
-      "rate": "14,000",
-      "quantity": "1",
-      "total": "14,000"
-    },
-    {
-      "description": "256GB M.2 SSD",
-      "rate": "30,000",
-      "quantity": "1",
-      "total": "30,000"
-    },
-    {
-      "description": "Hp power adapter",
-      "rate": "17,000",
-      "quantity": "1",
-      "total": "17,000"
-    },
-    {
-      "description": "Hp Elitebook repairs & installation",
-      "rate": "15,000",
-      "quantity": "1",
-      "total": "15,000"
-    }
-  ],
-  "total_amount": "263,000",
-  "amount_in_words": "Two hundred and sixty three thousand",
-  "received_by": "R.F",
-  "managed_by": "Kobo"
+    "location": "MAKURDI, BENUE STATE"
 }
-```
+
+This JSON output represents the extracted data from the image, with a single key-value pair for the location field.
