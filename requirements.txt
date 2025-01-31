@@ -1,8 +1,5 @@
 streamlit
-google.generativeai
-python-dotenv
 pillow
 groq
 pandas
-sqlite3
-# psycopg2
+python-dotenv
