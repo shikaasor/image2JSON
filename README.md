@@ -1,4 +1,4 @@
-Image2Form
+Image2JSON
 Image2Form is a Streamlit-based application that extracts structured JSON data from handwritten forms using the Groq LLaMA Vision model. The extracted data is stored in a SQLite database and can be exported as an Excel report. This tool is ideal for automating data extraction from handwritten documents, such as patient forms, invoices, or surveys.
 
 Features

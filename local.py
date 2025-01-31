@@ -200,7 +200,7 @@ def generate_excel_report():
 
 def main():
     """Main Streamlit application"""
-    st.set_page_config(page_title="Image2Form", layout="wide")
+    st.set_page_config(page_title="Image2JSON", layout="wide")
     st.header("Extract Data From Handfilled Form Image")
 
     # Document name input

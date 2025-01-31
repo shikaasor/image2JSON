@@ -165,7 +165,7 @@ def main():
     
     # Set page config
     st.set_page_config(
-        page_title="Image2Form",
+        page_title="Image2JSON",
         page_icon="📄",
         layout="wide"
     )
@@ -182,7 +182,7 @@ def main():
             delete_records()
 
     # Main content
-    st.title("📄 Image2Form")
+    st.title("📄 Image2JSON")
     st.markdown("Extract structured JSON data from handwritten forms using AI.")
 
     # Document name input
