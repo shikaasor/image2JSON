@@ -1,14 +1,19 @@
 import os
 import re
 import json
+import tempfile
+import uuid
 import base64
-import sqlite3
+from datetime import datetime
 import streamlit as st
 import pandas as pd
 from PIL import Image
 from dotenv import load_dotenv
 import groq
 import logging
+from supabase import create_client, Client
+
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -23,20 +28,10 @@ DATABASE_PATH = 'extracted_data.db'
 # Initialize Groq client
 groq_client = groq.Client(api_key=GROQ_API_KEY)
 
-def initialize_database():
-    """Create SQLite database and table with specified schema"""
-    conn = sqlite3.connect(DATABASE_PATH)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS json_data (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            document_name TEXT,
-            json_data TEXT,
-            date_created DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    conn.commit()
-    conn.close()
+# setup supabase
+supabase_url = os.getenv("SUPABASE_URL")
+supabase_key = os.getenv("SUPABASE_KEY")
+supabase = create_client(supabase_url, supabase_key)
 
 def load_image(uploaded_file):
     """Load and prepare image for processing"""
@@ -68,14 +63,16 @@ def generate_text(image, prompt):
                     ],
                 }
             ],
-            model="llama-3.2-11b-vision-preview",
-            temperature=0.4,
+            model="llama-3.2-90b-vision-preview",
+            temperature=1,
+            stream=False,
             top_p=1,
-            max_tokens=2048,
+            response_format={"type":"json_object"},
+            stop=None,
         )
         return response.choices[0].message.content
     except Exception as e:
-        logger.error(f"Error generating text: {e}")
+        logger.error(f"Error generating text: {e}", exc_info=True)
         st.error("Failed to generate text from the image. Please try again.")
         raise
 
@@ -90,69 +87,62 @@ def extract_json(response):
         st.error("Failed to extract JSON data from the response.")
         return None
 
-def insert_json_to_database(document_name, json_data):
+def insert_json_to_database(id, document_name, json_data, time_now):
     """Insert JSON data into SQLite database with document name"""
-    conn = sqlite3.connect(DATABASE_PATH)
-    cursor = conn.cursor()
     try:
         # Validate JSON
-        json.loads(json_data)
+        json_data_final = json.loads(json_data)
+        print(json_data_final)
         
-        cursor.execute(
-            "INSERT INTO json_data (document_name, json_data) VALUES (?, ?)", 
-            (document_name, json_data)
-        )
-        conn.commit()
+        response = supabase.table("json_data").insert({"id": id, "document_name": document_name, "json_data": json_data_final, "date_created": time_now}).execute()
+
         st.success("JSON data inserted into the database.")
-    except json.JSONDecodeError:
-        st.error("Invalid JSON data")
-    except sqlite3.Error as e:
+    except response.Error as e:
         logger.error(f"Database insertion error: {e}")
         st.error("Failed to insert JSON data into the database.")
-    finally:
-        conn.close()
+
+def fetch_data_from_supabase():
+    """Generate Excel report from database contents"""
+    try:
+        # Read data from supabase
+        response = supabase.table("json_data").select("*").execute()
+        if response.data:
+            return response.data
+        else:
+            logger.warning("No data found in the database.")
+            return []
+    except Exception as e:
+        logger.error(f"Error fetching data from Supabase: {e}")
+        st.error("Failed to fetch data from the database")
 
 def generate_excel_report():
-    """Generate Excel report from database contents"""
-    conn = sqlite3.connect(DATABASE_PATH)
     try:
-        # Read data from SQLite to DataFrame
-        df = pd.read_sql_query("SELECT * FROM json_data", conn)
+        data = fetch_data_from_supabase()
+        if not data:
+            st.warning("No data available to generate report.")
+            return
         
+        df = pd.DataFrame(data)
+
         # Save to Excel
-        excel_path = 'extracted_data_report.xlsx'
-        df.to_excel(excel_path, index=False)
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as tmp_file:
+            excel_path = tmp_file.name
+            df.to_excel(excel_path, index=False)
+            
+            st.success("Excel report generated successfully.")
+            with open(excel_path, 'rb') as f:
+                st.download_button(
+                    label="Download Excel Report",
+                    data=f,
+                    file_name='extracted_data_report.xlsx',
+                    mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                )
         
-        st.success("Excel report generated successfully.")
-        with open(excel_path, 'rb') as f:
-            st.download_button(
-                label="Download Excel Report",
-                data=f,
-                file_name='extracted_data_report.xlsx',
-                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            )
-        
-        # Clean up the temporary file
-        os.remove(excel_path)
+        # Clean up the temporary file after download
+        os.unlink(excel_path)
     except Exception as e:
         logger.error(f"Error generating Excel report: {e}")
         st.error("Failed to generate Excel report.")
-    finally:
-        conn.close()
-
-def delete_records():
-    """Delete all records from the database"""
-    conn = sqlite3.connect(DATABASE_PATH)
-    cursor = conn.cursor()
-    try:
-        cursor.execute("DELETE FROM json_data")
-        conn.commit()
-        st.success("All records deleted from the database.")
-    except sqlite3.Error as e:
-        logger.error(f"Error deleting records: {e}")
-        st.error("Failed to delete records from the database.")
-    finally:
-        conn.close()
 
 def cleanup_temp_files():
     """Clean up temporary files"""
@@ -161,7 +151,6 @@ def cleanup_temp_files():
 
 def main():
     """Main Streamlit application"""
-    initialize_database()
     
     # Set page config
     st.set_page_config(
@@ -176,24 +165,21 @@ def main():
         st.markdown("""
             - **Upload an image** to extract data.
             - **Generate an Excel report** from the database.
-            - **Delete all records** from the database.
         """)
-        if st.button("Delete All Records"):
-            delete_records()
 
     # Main content
     st.title("📄 Image2JSON")
     st.markdown("Extract structured JSON data from handwritten forms using AI.")
 
     # Document name input
-    document_name = st.text_input("Enter Document Name", placeholder="e.g., Patient Form, Invoice")
+    document_name = st.text_input("Enter Document Name", placeholder="e.g., Patient Form, Invoice", help="Provide a name for the document to help identify it later.")
 
     # Image upload section
-    uploaded_file = st.file_uploader("Choose image file to detect text", type=['jpeg', 'jpg', 'png'])
+    uploaded_file = st.file_uploader("Choose image file to detect text", type=['jpeg', 'jpg', 'png'], help="Upload an image containing handwritten or printed text.")
     
     if uploaded_file:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image.", use_container_width=True)
+        st.image(image, caption="Uploaded Image.")
     
     # Extract text button
     submit = st.button("Extract Text")
@@ -215,18 +201,22 @@ def main():
     """
 
     # Text extraction process
+    if 'json_data' not in st.session_state:
+        st.session_state.json_data = None
+
     if submit and uploaded_file and document_name:
         with st.spinner("Extracting data from the image..."):
             try:
                 image_data = load_image(uploaded_file)
                 response = generate_text(image_data, input_prompt)
-                st.subheader("Extracted Data:")
-                st.write(response)
-                
-                json_data = extract_json(response)
-                if json_data:
+                st.session_state.json_data = response
+
+                if st.session_state.json_data:
+                    json_data = st.session_state.json_data
                     st.json(json_data)
-                    insert_json_to_database(document_name, json_data)
+                    id = str(uuid.uuid4())
+                    time_now = datetime.now().isoformat()
+                    insert_json_to_database(id, document_name, json_data, time_now)
                 else:
                     st.warning("No valid JSON found in the response.")
             except Exception as e:

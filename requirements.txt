@@ -3,3 +3,4 @@ pillow
 groq
 pandas
 python-dotenv
+supabase
